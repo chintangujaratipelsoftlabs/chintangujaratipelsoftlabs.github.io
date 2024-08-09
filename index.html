@@ -18,87 +18,102 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="a Flutter Video Call Demo using WebRTC, Coturn and Firebase">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="flutter_firebase_video_call_webrtc">
+  <meta name="apple-mobile-web-app-title" content="flutterwebsample">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>flutter_firebase_video_call_webrtc</title>
+  <title>kit19 Team Chat</title>
   <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "1787276390";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
-  <script>
-    const serviceWorkerVersion = "1076042930";
-    var scriptLoaded = false;
-    function loadMainDartJs() {
-      if (scriptLoaded) {
-        return;
-      }
-      scriptLoaded = true;
-      var scriptTag = document.createElement('script');
-      scriptTag.src = 'main.dart.js';
-      scriptTag.type = 'application/javascript';
-      document.body.append(scriptTag);
-    }
+<!--<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>-->
+<!--<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>-->
+<!--<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>-->
+<!--<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>-->
 
-    if ('serviceWorker' in navigator) {
-      // Service workers are supported. Use them.
-      window.addEventListener('load', function () {
-        // Wait for registration to finish before dropping the <script> tag.
-        // Otherwise, the browser will load the script multiple times,
-        // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl)
-          .then((reg) => {
-            function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener('statechange', () => {
-                if (serviceWorker.state == 'activated') {
-                  console.log('Installed new service worker.');
-                  loadMainDartJs();
-                }
-              });
-            }
-            if (!reg.active && (reg.installing || reg.waiting)) {
-              // No active web worker and we have installed or are installing
-              // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
-              // need to ask the service worker to update.
-              console.log('New service worker available.');
-              reg.update();
-              waitForActivation(reg.installing);
-            } else {
-              // Existing service worker is still good.
-              console.log('Loading app from service worker.');
-              loadMainDartJs();
-            }
+<script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
           });
-
-        // If service worker doesn't succeed in a reasonable amount of time,
-        // fallback to plaint <script> tag.
-        setTimeout(() => {
-          if (!scriptLoaded) {
-            console.warn(
-              'Failed to load app from service worker. Falling back to plain <script> tag.',
-            );
-            loadMainDartJs();
-          }
-        }, 4000);
+        }
       });
-    } else {
-      // Service workers not supported. Just drop the <script> tag.
-      loadMainDartJs();
+    });
+
+    const channel = new BroadcastChannel('sw-messages');
+    channel.addEventListener("message", function (event) {
+    localStorage.setItem('flutter.notificationExist', true)
+     window.postMessage(JSON.stringify(event.data))
+
+    })
+  </script>
+<!--<script src="main.dart.js" type="application/javascript"></script>-->
+
+<script>
+      var firebaseConfig = {
+         apiKey: "AIzaSyAkPqCYYcW-FSOURCjqh1JiyR8ft5IJjH8",
+          authDomain: "kit19app.firebaseapp.com",
+          databaseURL: "https://kit19app-default-rtdb.firebaseio.com",
+          projectId: "kit19app",
+          storageBucket: "kit19app.appspot.com",
+          messagingSenderId: "530267574208",
+          appId: "1:530267574208:web:9a8ff9541c6858cbfe4225",
+          measurementId: "G-H0QTKX9G8W"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+<!--    navigator.serviceWorker.register("/flutter_service_worker.js");-->
+    navigator.serviceWorker.register("/firebase-messaging-sw.js");
+  });
+}
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/build/pdf.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/build/pdf.worker.min.js";
+    pdfRenderOptions = {
+      cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/cmaps/',
+      cMapPacked: true,
     }
   </script>
+
+<!--<script src="flutter_bootstrap.js" async>-->
+<!--    if ('serviceWorker' in navigator) {-->
+<!--        // Service workers are supported. Use them.-->
+<!--        window.addEventListener('load', function () {-->
+<!--          // Register Firebase Messaging service worker.-->
+<!--          navigator.serviceWorker.register('firebase-messaging-sw.js', {-->
+<!--            scope: '/firebase-cloud-messaging-push-scope',-->
+<!--          });-->
+<!--        });-->
+<!--      }-->
+<!--  </script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA6804BKoIzfHP-db6QGvAuq1f2FHY3BE"></script>
 </body>
 </html>

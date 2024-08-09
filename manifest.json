@@ -1,11 +1,11 @@
 {
-    "name": "flutter_firebase_video_call_webrtc",
-    "short_name": "flutter_firebase_video_call_webrtc",
+    "name": "flutterwebsample",
+    "short_name": "flutterwebsample",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "a Flutter Video Call Demo using WebRTC, Coturn and Firebase",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
